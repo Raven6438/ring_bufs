@@ -25,7 +25,7 @@ class RingBuf:
     def increment_tail_pos(self):
         self._tail_pos = new_tail_pos if (new_tail_pos := self._tail_pos + 1) < self._max_size else 0
 
-    def push_item(self, item):
+    def push(self, item):
         seq = self.get_seq()
 
         if self._is_full():
@@ -36,10 +36,6 @@ class RingBuf:
             seq[self._tail_pos] = item
             if seq[0] is not None:
                 self.increment_tail_pos()
-
-    def push_items(self, *args, **kwargs):
-        for item in args:
-            self.push_item(item)
 
     def pop(self):
         seq = self.get_seq()
