@@ -11,9 +11,9 @@ class RingBuf:
     @staticmethod
     def _validate_max_size(value):
         if not isinstance(value, int):
-            raise Exception('Значение должно быть числом!')
+            raise MaxSizeIsNotIntError(value)
         if value < 0:
-            raise Exception('Значение max_size должно быть положительным числом!')
+            raise MaxSizeIsNotPositiveError()
         return value
 
     def _is_full(self):
@@ -49,3 +49,16 @@ class RingBuf:
 
         self._head_pos = 0
         self._tail_pos = 0
+
+
+class MaxSizeIsNotIntError(Exception):
+    def __init__(self, max_size: int, msg: str = None):
+        self.max_size = max_size
+        self.msg = msg or f'Max size value must be an int type! But is a {type(self.max_size)} '
+        super().__init__(self.msg)
+
+
+class MaxSizeIsNotPositiveError(Exception):
+    def __init__(self, msg: str = None):
+        self.msg = msg or 'Значение max_size должно быть положительным числом!'
+        super().__init__(self.msg)
