@@ -19,10 +19,10 @@ class RingBuf:
     def _is_full(self):
         return None not in self.get_seq()
 
-    def _increment_head_pos(self):
+    def increment_head_pos(self):
         self._head_pos = new_head_pos if (new_head_pos := self._head_pos + 1) < self._max_size else 0
 
-    def _increment_tail_pos(self):
+    def increment_tail_pos(self):
         self._tail_pos = new_tail_pos if (new_tail_pos := self._tail_pos + 1) < self._max_size else 0
 
     def push(self, item):
@@ -30,17 +30,17 @@ class RingBuf:
 
         if self._is_full():
             seq[self._head_pos] = item
-            self._increment_head_pos()
-            self._increment_tail_pos()
+            self.increment_head_pos()
+            self.increment_tail_pos()
         else:
             seq[self._tail_pos] = item
             if seq[0] is not None:
-                self._increment_tail_pos()
+                self.increment_tail_pos()
 
     def pop(self):
         seq = self.get_seq()
         seq[self._head_pos] = None
-        self._increment_head_pos()
+        self.increment_head_pos()
 
     def clear(self):
         seq = self.get_seq()
