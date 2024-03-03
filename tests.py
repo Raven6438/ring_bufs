@@ -38,3 +38,11 @@ class TestRingBuf(unittest.TestCase, CustomAssertions):
         self.ring_buf.push(test_element)
 
         self.assertIn(test_element, self.ring_buf.get_seq())
+
+    def test_clear(self):
+        test_element: Any = 'Test'
+        self.ring_buf.push(test_element)
+        self.ring_buf.clear()
+
+        self.assertNotIn(test_element, self.ring_buf.get_seq())
+        self.assertAllElementsIsNone(self.ring_buf.get_seq())
