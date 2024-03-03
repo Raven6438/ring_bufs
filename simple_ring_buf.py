@@ -1,3 +1,6 @@
+import exceptions
+
+
 class SimpleRingBuf:
     def __init__(self, *, max_size):
         self._max_size = self._validate_max_size(max_size)
@@ -7,9 +10,9 @@ class SimpleRingBuf:
     @staticmethod
     def _validate_max_size(value):
         if not isinstance(value, int):
-            raise Exception('Значение должно быть числом!')
+            raise exceptions.MaxSizeIsNotIntError(value)
         if value < 0:
-            raise Exception('Значение max_size должно быть положительным числом!')
+            raise exceptions.MaxSizeIsNotPositiveError()
         return value
 
     def get_seq(self):
