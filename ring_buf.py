@@ -1,4 +1,4 @@
-from exceptions import MaxSizeIsNotPositiveError, MaxSizeIsNotIntError
+import exceptions
 
 
 class RingBuf:
@@ -14,9 +14,9 @@ class RingBuf:
     @staticmethod
     def _validate_max_size(value):
         if not isinstance(value, int):
-            raise MaxSizeIsNotIntError(value)
+            raise exceptions.MaxSizeIsNotIntError(value)
         if value < 0:
-            raise MaxSizeIsNotPositiveError()
+            raise exceptions.MaxSizeIsNotPositiveError()
         return value
 
     def _is_full(self):
