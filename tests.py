@@ -1,6 +1,7 @@
 import unittest
 from typing import Any
 
+import exceptions
 import ring_buf
 
 
@@ -25,11 +26,11 @@ class TestRingBuf(unittest.TestCase, CustomAssertions):
             ring_buf.RingBuf()  # noqa
 
     def test_create_ring_buf_with_max_size_as_not_int(self):
-        with self.assertRaises(ring_buf.MaxSizeIsNotIntError):
+        with self.assertRaises(exceptions.MaxSizeIsNotIntError):
             ring_buf.RingBuf(max_size='string')
 
     def test_create_ring_buf_with_max_size_as_negative_int(self):
-        with self.assertRaises(ring_buf.MaxSizeIsNotPositiveError):
+        with self.assertRaises(exceptions.MaxSizeIsNotPositiveError):
             ring_buf.RingBuf(max_size=-1)
 
     def test_push_element(self):
