@@ -47,8 +47,7 @@ class RingBuf:
 
     def clear(self):
         seq = self.get_seq()
-        for i in range(self._max_size):
-            seq[i] = None
+        self._seq = list(map(lambda value: None, seq))
 
         self._head_pos = 0
         self._tail_pos = 0
