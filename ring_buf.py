@@ -42,8 +42,12 @@ class RingBuf:
 
     def pop(self):
         seq = self.get_seq()
+        extracted_element = seq[self._head_pos]
+
         seq[self._head_pos] = None
         self._increment_head_pos()
+
+        return extracted_element
 
     def clear(self):
         seq = self.get_seq()

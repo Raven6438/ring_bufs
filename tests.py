@@ -39,6 +39,15 @@ class TestRingBuf(unittest.TestCase, CustomAssertions):
 
         self.assertIn(test_element, self.ring_buf.get_seq())
 
+    def test_pop(self):
+        test_element: Any = 1
+        self.ring_buf.push(test_element)
+
+        extracted_element = self.ring_buf.pop()
+
+        self.assertEqual(extracted_element, test_element)
+        self.assertNotIn(test_element, self.ring_buf.get_seq())
+
     def test_clear(self):
         test_element: Any = 'Test'
         self.ring_buf.push(test_element)
